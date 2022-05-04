@@ -19,7 +19,12 @@ public class ListItem {
         this.itemDTO = itemDTO;
         this.quantity = quantity;
     }
-    
+    public ItemDTO getItemDTO() {
+        return this.itemDTO;
+    }
+    public int getItemQuantity() {
+        return this.quantity;
+    }
     /**
      * Updates the amount of items with the same itemID in the itemDTO
      * @param quantityToAdd The amount of items to add to the total

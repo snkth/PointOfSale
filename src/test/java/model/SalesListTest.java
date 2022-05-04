@@ -6,36 +6,31 @@ import java.util.List;
 import dto.ItemDTO;
 import dto.SalesListDTO;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Peter
- */
 public class SalesListTest {
     private ItemDTO testItem;
     private ItemDTO otherTestItem;
     private ListItem listItemTest;
     private List<ListItem> theItemList;
+
+    /**a listItem has been created which will contain testItem and its quantity
+     * this listItem will be put in theItemList which will be compared to the add item function of the instance of saleslist
+     * 
+     *
+     */
+
     public SalesListTest() {
     }
     
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
+
     
     @BeforeEach
     public void setUp() {
         this.testItem = new ItemDTO(13, "bread", "bread desc", "bread category", 40, 1, true);
-        this.otherTestItem = new ItemDTO(13, "milk", "milk desc", "dairy category", 23, 13, false);
+        this.otherTestItem = new ItemDTO(14, "milk", "milk desc", "dairy category", 23, 13, false);
         listItemTest = new ListItem(testItem, 1);
         this.theItemList = new ArrayList<ListItem>();
         theItemList.add(listItemTest);
@@ -49,6 +44,7 @@ public class SalesListTest {
 
     /**
      * Test of addItem method, of class SalesList.
+     * 
      */
     @Test
     public void testAddItem() {
@@ -57,13 +53,19 @@ public class SalesListTest {
         int quantity = 1;
         SalesList instance = new SalesList();
         SalesListDTO expResult = new SalesListDTO(theItemList, 0, 0);
-        SalesListDTO result1 = instance.addItem(itemDTO, quantity);
-        boolean isittrue = result1.getTheItemList().equals(expResult.getTheItemList());
-        assertEquals(true, isittrue);
+        SalesListDTO result = instance.addItem(itemDTO, quantity);
+        assertEquals(expResult.getTheItemList().get(0).getItemDTO().getItemID(), result.getTheItemList().get(0).getItemDTO().getItemID(), "Item was not added to the list");
     }
-
+    @Test
     public void testAddItemQuantity(){
-
+        System.out.println("addItem");
+        ItemDTO itemDTO = this.testItem;
+        int quantity = 1;
+        SalesList instance = new SalesList();
+        int expResult = 2;
+        SalesListDTO result = instance.addItem(itemDTO, quantity);
+        result = instance.addItem(itemDTO, quantity);
+        assertEquals(expResult, result.getTheItemList().get(0).getItemQuantity(), "Item was not added to the list");
     }
     /**
      * Test if item is valid

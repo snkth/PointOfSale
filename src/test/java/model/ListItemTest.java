@@ -46,12 +46,12 @@ public class ListItemTest {
     @Test
     public void testAddQuantity() {
         System.out.println("addQuantity");
-        int quantityToAdd = 2;
+        int quantityToAdd = 1;
         ListItem instance = this.listItemTest;
         instance.addQuantity(quantityToAdd);
         int result = instance.quantity;
-        int expResult = 3; 
-        assertEquals(expResult, result);
+        int expResult = 2; 
+        assertEquals(expResult, result, "Computed the quantity wrong");
 
     }
     
