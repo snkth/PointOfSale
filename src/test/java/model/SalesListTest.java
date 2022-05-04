@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SalesListTest {
     private ItemDTO testItem;
     private ItemDTO otherTestItem;
+    private ListItem listItemTest;
     private List<ListItem> theItemList;
     public SalesListTest() {
     }
@@ -35,7 +36,9 @@ public class SalesListTest {
     public void setUp() {
         this.testItem = new ItemDTO(13, "bread", "bread desc", "bread category", 40, 1, true);
         this.otherTestItem = new ItemDTO(13, "milk", "milk desc", "dairy category", 23, 13, false);
+        listItemTest = new ListItem(testItem, 1);
         this.theItemList = new ArrayList<ListItem>();
+        theItemList.add(listItemTest);
     }
     
     @AfterEach
@@ -53,9 +56,10 @@ public class SalesListTest {
         ItemDTO itemDTO = this.testItem;
         int quantity = 1;
         SalesList instance = new SalesList();
-        SalesListDTO expResult = new SalesListDTO(theItemList, 40, 1);
-        SalesListDTO result = instance.addItem(itemDTO, quantity);
-        assertEquals(expResult, result);
+        SalesListDTO expResult = new SalesListDTO(theItemList, 0, 0);
+        SalesListDTO result1 = instance.addItem(itemDTO, quantity);
+        boolean isittrue = result1.getTheItemList().equals(expResult.getTheItemList());
+        assertEquals(true, isittrue);
     }
 
     public void testAddItemQuantity(){

@@ -3,21 +3,27 @@ package view;
 
 import controller.Controller;
 import dto.SaleLogDTO;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.time.format.*;
 
 
 
 
+/**
+ * This class represents the part of the program that the user (a cashier) would interact with
+ */
 public class View {
     private final Controller controller;
     
+    /**
+     * Initializes the only instance of the view class.
+     * @param controller The controller the view should interact with and send commands to
+     */
     public View (Controller controller) {
         this.controller = controller;
     }
     
     /**
-     * 
+     * Runs a fictitious execution of the functions in controller that the view would generally call and prints a message to System.out after each call
      */
     public void runFakeExecution () {
         controller.startSale();

@@ -10,12 +10,14 @@ import integration.DiscountDatabaseHandler;
 import integration.InventorySystemHandler;
 import integration.PrinterHandler;
 import model.SalesList;
+import model.Sale;
 import dto.ItemDTO;
 import dto.SaleLogDTO;
 import dto.SalesListDTO;
-import model.Sale;
 
-
+/**
+ * The programs only controller and is only receiving calls from the view
+ */
 public class Controller {
     private final HandlerCreator handlerCreator;
     private final AccountingSystemHandler accountingSystemHandler;
@@ -26,6 +28,10 @@ public class Controller {
     private SalesList salesList;
     private Sale sale;
     
+    /**
+     * Initializes the programs only controller that is used to relay calls from the view to the rest of the system
+     * @param handlerCreator The handlerCreator that is responsible for creating the handlers that handle calls to databases or I/O, it also contains the references to those handlers
+     */
     public Controller (HandlerCreator handlerCreator) {
         this.handlerCreator = handlerCreator;
         this.accountingSystemHandler = handlerCreator.getAccountingSystemHandler();
@@ -36,16 +42,16 @@ public class Controller {
     }
     
     /**
-     * 
+     * Initializes a new blank sale to be filled with items. This function must be called before items can be scanned with scanItem.
      */
     public void startSale () {
         this.salesList = new SalesList();
     }
     
     /**
-     * 
-     * @param itemID
-     * @param quantity
+     * Adds the specified amount of items to the sale initialized earlier
+     * @param itemID The itemID scanned or entered manually
+     * @param quantity The amount of items with the same itemID to be added at the same time
      * @return 
      */
     public SalesListDTO scanItem (int itemID, int quantity) {
@@ -56,15 +62,15 @@ public class Controller {
     }
     
     /**
-     * 
+     * Finalizes the list of items to be sold and prepares to receive payment. Must be called before receiving payment from customer.
      */
     public void endSale () {
         this.sale = new Sale(salesList);
     }
     
     /**
-     * 
-     * @param amountPaid
+     * Finalizes and finished the sale after payment has been received (from the customer). This includes updating inventory and accounting as well as printing a receipt. Must be called after endSale that finalizes the list of items to be sold.
+     * @param amountPaid The amount paid in cash to the cashier
      * @return 
      */
     public SaleLogDTO processSale (int amountPaid) {
